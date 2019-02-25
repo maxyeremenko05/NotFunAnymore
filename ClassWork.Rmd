@@ -15,20 +15,3 @@ knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=TRUE)
 ```
 
 
-This page is for classwor
-
-NNNNN
-]'/,O
-```{r}
-
-```
-```{r}
-a <- 5
-b <-6
-
-a+b  
-
-```
-
-```
-
