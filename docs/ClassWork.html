@@ -411,14 +411,94 @@ div.tocify {
 </div>
 
 
-<p>This page is for classwor</p>
-<p>NNNNN ]’/,O</p>
-<pre class="r"><code>a &lt;- 5
-b &lt;-6
+<div id="class-2252019---data-visualization" class="section level2">
+<h2>Class 2/25/2019 - Data Visualization</h2>
+<p>-dataframe format - put the data in this format to analyse (like excel) -use ggplot2 to graph</p>
+<p>a &lt;- data.frame()</p>
+<p>Names &lt;- c(“Peter, Paul, Mary”) Age &lt;- c(1000,1200,100) Sex &lt;- c(“M”, “M”, “F”)</p>
+<p>my_df(name of the dataframe) data.frame(Names,Ages, Sex) my_df &lt;- data.frame (Names, Age, Sex) creates a table with 3 collumns (names, ages, sex)</p>
+<p>Put NA for missing data or for nothing (50-NA(missing name and sex))</p>
+<p>creates a table with 3 collumns (names, ages, sex)</p>
+<p>my_df and $ gives a particular column, AND GIVES LEVELS !!! my_df$names and it will show data for names and it’s levels</p>
+<p>my_df<span class="math inline">\(names &lt;- as.character(my_df\)</span>names) will transform the data from factor to character in global environment</p>
+<pre class="r"><code>Names &lt;- c(&quot;Peter&quot;, &quot;Paul&quot;, &quot;Mary&quot;, &quot;NA&quot;)
+Age &lt;- c(1000,1200,100, 50)
+Sex &lt;- c(&quot;M&quot;, &quot;M&quot;, &quot;F&quot;, &quot;NA&quot;)
 
-a+b  </code></pre>
-<pre><code>## [1] 11</code></pre>
-<p>```</p>
+my_df &lt;- data.frame (Names, Age, Sex)</code></pre>
+<p>Example 1.</p>
+<p>1)instal ggplot 2 from packages aes(x=a,y=b) - defines the axes and veriables x axes is a variable, y axes is b variable ggplot(plot_df) to run ggplot on a datafram</p>
+<p>geoms - for graphs. geom_point</p>
+<pre class="r"><code>library(ggplot2)
+a &lt;- c(1,2,3,2,3,4,5,4)
+b &lt;- c(4,3,4,3,2,1,2,3)
+plot_df &lt;- data.frame(a,b)
+
+
+ggplot(plot_df, aes(x=a,y=b))</code></pre>
+<p><img src="ClassWork_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(plot_df, aes(x=a,y=b))+
+  geom_point()</code></pre>
+<p><img src="ClassWork_files/figure-html/unnamed-chunk-2-2.png" width="672" /></p>
+<p>ggplot(plot_df, aes(x=a,y=b))+ geom_point(size=2)+ —-SIZE of the dots geom_smooth(method=lm)+ ——–lenear regression coord_cartesian(xlim=c(0,7),ylim=c(0,10))+ ——– changesthe range x and y limits xlab(“x-axis label”)+ ———— change the names of x axis ylab(“y-axis label”)+ ———– change the name of y axis ggtitle(“I made a scatterplot”)+<br />
+theme_classic(base_size=12)+ ———-classic background, base_size —– size of font on the graph theme(plot.title = element_text(hjust = 0.5)) ————- centers the title</p>
+<pre class="r"><code>ggplot(plot_df, aes(x=a,y=b))+
+  geom_point(size=2)+
+  geom_smooth(method=lm)+
+  coord_cartesian(xlim=c(0,7),ylim=c(0,10))+
+  xlab(&quot;x-axis label&quot;)+
+  ylab(&quot;y-axis label&quot;)+
+  ggtitle(&quot;I made a scatterplot&quot;)+
+  theme_classic(base_size=12)+
+  theme(plot.title = element_text(hjust = 0.5))</code></pre>
+<p><img src="ClassWork_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>factor_one &lt;- as.factor(c(“A”,“B”,“C”)) dv_means &lt;- c(20,30,40) dv_SEs &lt;- c(4,3.4,4) plot_df &lt;- data.frame(factor_one, ————-levels of the factors dv_means, dv_SEs) dv_SEs) # basic bar graph</p>
+<p>ggplot(plot_df, aes(x=factor_one,y=dv_means))+ geom_bar(stat=“identity”)</p>
+<p>add + to add stuff to the graph. geom_bar (stat=“identity”) ———– plot the data on the graph, without it, it won’t work</p>
+</div>
+<div id="adding-error-bars-customizing" class="section level1">
+<h1>adding error bars, customizing</h1>
+<p>ggplot(plot_df, aes(x=factor_one,y=dv_means))+ geom_bar(stat=“identity”)+ geom_errorbar(aes(ymin=dv_means-dv_SEs, ————need to identify minimum value, mean -stnderror ymax=dv_means+dv_SEs), ———— need to identify maximum value,mean+stnderror width=.2)+ coord_cartesian(ylim=c(0,100))+ xlab(“x-axis label”)+ ylab(“y-axis label”)+ ggtitle(“I made a bar graph”)+ theme_classic(base_size=12)+ theme(plot.title = element_text(hjust = 0.5))</p>
+<pre class="r"><code>factor_one &lt;- as.factor(c(&quot;A&quot;,&quot;B&quot;,&quot;C&quot;))
+dv_means &lt;- c(20,30,40)
+dv_SEs   &lt;- c(4,3.4,4)
+plot_df &lt;- data.frame(factor_one,
+                      dv_means,
+                      dv_SEs)
+# basic bar graph
+
+ggplot(plot_df, aes(x=factor_one,y=dv_means))+
+  geom_bar(stat=&quot;identity&quot;)</code></pre>
+<p><img src="ClassWork_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+</div>
+<div id="create-a-dataframe" class="section level1">
+<h1>Create a dataframe</h1>
+<p>factor_one &lt;- rep(as.factor(c(“A”,“B”,“C”)),2) factor_two &lt;- rep(as.factor(c(“IIA”,“IIB”)),3) dv_means &lt;- c(20,30,40,20,40,40) dv_SEs &lt;- c(4,3.4,4,3,2,4) plot_df &lt;- data.frame(factor_one, factor_two, dv_means, dv_SEs)</p>
+</div>
+<div id="basic-bar-graph" class="section level1">
+<h1>basic bar graph</h1>
+<p>ggplot(plot_df, aes(x=factor_one,y=dv_means, group=factor_two, color=factor_two fill_factor_two))+———————means border color. fill=factor_two to color the bar geom_bar(stat=“identity”, position=“dodge”)————– dodge separates the bars of different factors</p>
+<pre class="r"><code>#Create a dataframe
+factor_one &lt;- rep(as.factor(c(&quot;A&quot;,&quot;B&quot;,&quot;C&quot;)),2)
+factor_two &lt;- rep(as.factor(c(&quot;IIA&quot;,&quot;IIB&quot;)),3)
+dv_means &lt;- c(20,30,40,20,40,40)
+dv_SEs   &lt;- c(4,3.4,4,3,2,4)
+plot_df &lt;- data.frame(factor_one,
+                      factor_two,
+                      dv_means,
+                      dv_SEs)
+
+# basic bar graph
+
+ggplot(plot_df, aes(x=factor_one,y=dv_means,
+                    group=factor_two,
+                    color=factor_two))+
+  geom_bar(stat=&quot;identity&quot;, position=&quot;dodge&quot;)</code></pre>
+<p><img src="ClassWork_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<pre class="r"><code>factor_one</code></pre>
+<pre><code>## [1] A B C A B C
+## Levels: A B C</code></pre>
+</div>
 
 
 

@@ -76,3 +76,32 @@ MyFirstFunction(numbers)
 seq(1:100 )
 ```
 
+# Class 2/25/2019 - Data Visualization
+
+columns:
+  names, MF(mean frequency), Condition
+  Dara      60                  SC
+  Dara      60                  NS
+  Rita      55                  SC
+  Rita      55                  NS
+  Aversity <- rep(c("A", "N_A")), times=c(4,6) ------------ repeats labels different amount of times a 4 times and n_a 6 times. 
+  
+  how to make random numbers????rnorm command??????????
+  rep command?????????????
+  c??????????????
+  
+```{r}
+Names <- rep(c("Dara", "Azelea", "Barbi", "Rowena", "Fiona"),each=2)
+MF <-rnorm (10,45,25)
+Condition <- c("Social", "NonSocial")
+Aversity <- rep(c("A", "N_A"),times=c(4,6))
+                
+plot_df<- data.frame (Names, MF, Condition, Aversity)
+
+ggplot(plot_df, aes(x=Condition, y=MF, group=Names,linetype=Aversity))+
+  geom_line()+
+  geom_text(label=Names)+
+  theme_classic()
+
+```
+

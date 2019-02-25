@@ -15,3 +15,176 @@ knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=TRUE)
 ```
 
 
+## Class 2/25/2019 - Data Visualization
+
+-dataframe format - put the data in this format to analyse (like excel)
+-use ggplot2 to graph
+
+a <- data.frame()
+
+
+Names <- c("Peter, Paul, Mary")
+Age <- c(1000,1200,100)
+Sex <- c("M", "M", "F")
+
+my_df(name of the dataframe)  data.frame(Names,Ages, Sex)
+my_df <- data.frame (Names, Age, Sex)
+creates a table with 3 collumns (names, ages, sex)
+
+Put NA for missing data or for nothing (50-NA(missing name and sex))
+
+creates a table with 3 collumns (names, ages, sex)
+
+my_df and $ gives a particular column, AND GIVES LEVELS !!!
+my_df$names and it will show data for names and it's levels
+
+my_df$names <- as.character(my_df$names) will transform the data from factor to character in global environment
+
+
+```{r}
+
+Names <- c("Peter", "Paul", "Mary", "NA")
+Age <- c(1000,1200,100, 50)
+Sex <- c("M", "M", "F", "NA")
+
+my_df <- data.frame (Names, Age, Sex)
+```
+
+Example 1.
+
+1)instal ggplot 2 from packages
+aes(x=a,y=b) - defines the axes and veriables x axes is a variable, y axes is b variable
+ggplot(plot_df) to run ggplot on a datafram
+
+geoms - for graphs. geom_point
+```{r}
+
+library(ggplot2)
+a <- c(1,2,3,2,3,4,5,4)
+b <- c(4,3,4,3,2,1,2,3)
+plot_df <- data.frame(a,b)
+
+
+ggplot(plot_df, aes(x=a,y=b))
+
+ggplot(plot_df, aes(x=a,y=b))+
+  geom_point()
+
+
+```
+
+
+ggplot(plot_df, aes(x=a,y=b))+
+  geom_point(size=2)+  ----SIZE of the dots
+  geom_smooth(method=lm)+  --------lenear regression
+  coord_cartesian(xlim=c(0,7),ylim=c(0,10))+  -------- changesthe range x and y limits
+  xlab("x-axis label")+ ------------ change the names of x axis
+  ylab("y-axis label")+ ----------- change the name of y axis
+  ggtitle("I made a scatterplot")+  
+  theme_classic(base_size=12)+   ----------classic background, base_size ----- size of font on the graph
+  theme(plot.title = element_text(hjust = 0.5)) ------------- centers the title
+  
+  
+```{r}
+ggplot(plot_df, aes(x=a,y=b))+
+  geom_point(size=2)+
+  geom_smooth(method=lm)+
+  coord_cartesian(xlim=c(0,7),ylim=c(0,10))+
+  xlab("x-axis label")+
+  ylab("y-axis label")+
+  ggtitle("I made a scatterplot")+
+  theme_classic(base_size=12)+
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+factor_one <- as.factor(c("A","B","C"))
+dv_means <- c(20,30,40)
+dv_SEs   <- c(4,3.4,4)
+plot_df <- data.frame(factor_one, -------------levels of the factors
+                      dv_means,
+                      dv_SEs)
+                      dv_SEs)
+# basic bar graph
+
+ggplot(plot_df, aes(x=factor_one,y=dv_means))+
+  geom_bar(stat="identity")                     
+  
+  add + to add stuff to the graph.
+  geom_bar (stat="identity")  ----------- plot the data on the graph, without it, it won't work
+  
+# adding error bars, customizing
+
+ggplot(plot_df, aes(x=factor_one,y=dv_means))+
+  geom_bar(stat="identity")+
+  geom_errorbar(aes(ymin=dv_means-dv_SEs, ------------need to identify minimum value, mean -stnderror
+                    ymax=dv_means+dv_SEs), ------------ need to identify maximum value,mean+stnderror
+                width=.2)+
+  coord_cartesian(ylim=c(0,100))+
+  xlab("x-axis label")+
+  ylab("y-axis label")+
+  ggtitle("I made a bar graph")+
+  theme_classic(base_size=12)+
+  theme(plot.title = element_text(hjust = 0.5))
+
+```{r}
+factor_one <- as.factor(c("A","B","C"))
+dv_means <- c(20,30,40)
+dv_SEs   <- c(4,3.4,4)
+plot_df <- data.frame(factor_one,
+                      dv_means,
+                      dv_SEs)
+# basic bar graph
+
+ggplot(plot_df, aes(x=factor_one,y=dv_means))+
+  geom_bar(stat="identity")
+
+```
+
+
+#Create a dataframe
+factor_one <- rep(as.factor(c("A","B","C")),2)
+factor_two <- rep(as.factor(c("IIA","IIB")),3)
+dv_means <- c(20,30,40,20,40,40)
+dv_SEs   <- c(4,3.4,4,3,2,4)
+plot_df <- data.frame(factor_one,
+                      factor_two,
+                      dv_means,
+                      dv_SEs)
+
+# basic bar graph
+
+ggplot(plot_df, aes(x=factor_one,y=dv_means,
+                    group=factor_two,
+                    color=factor_two
+                    fill_factor_two))+---------------------means border color. fill=factor_two to color the bar
+  geom_bar(stat="identity", position="dodge")-------------- dodge separates the bars of different factors
+  
+```{r}
+#Create a dataframe
+factor_one <- rep(as.factor(c("A","B","C")),2)
+factor_two <- rep(as.factor(c("IIA","IIB")),3)
+dv_means <- c(20,30,40,20,40,40)
+dv_SEs   <- c(4,3.4,4,3,2,4)
+plot_df <- data.frame(factor_one,
+                      factor_two,
+                      dv_means,
+                      dv_SEs)
+
+# basic bar graph
+
+ggplot(plot_df, aes(x=factor_one,y=dv_means,
+                    group=factor_two,
+                    color=factor_two))+
+  geom_bar(stat="identity", position="dodge")
+```
+
+```{r}
+factor_one
+```
+
+geom_errorbar(aes(ymin=dv_means-dv_SEs,
+                    ymax=dv_means+dv_SEs),
+                position=position_dodge(width=0.9)  ------------------ positions the error bars in the center of the bar.
+                
+                
+facet_wrap(~factor_three) ----------- divides the data on a graphs, in this example 2 graphs for 3 factors
