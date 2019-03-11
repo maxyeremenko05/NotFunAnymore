@@ -188,3 +188,25 @@ geom_errorbar(aes(ymin=dv_means-dv_SEs,
                 
                 
 facet_wrap(~factor_three) ----------- divides the data on a graphs, in this example 2 graphs for 3 factors
+
+```{r}
+library(ggplot2)
+```
+
+
+## Class 3/11/2019
+
+```{r}
+library(dplyr)
+
+df<-starwars
+
+new_df <- df %>%
+    filter(height >100)%>%
+    group_by(homeworld) %>%
+    summarise(mean_birth_year = mean(birth_year,na.rm=TRUE))
+    
+```
+
+
+
