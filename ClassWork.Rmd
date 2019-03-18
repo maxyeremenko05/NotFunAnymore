@@ -231,4 +231,19 @@ new_df <- df %>%
 
 
 
+## Class 3/18/2019
+
+aov_out
+```{r}
+factor1 <- rep(c("A", "B", "C"),each=5)
+DV <-rnorm(n=15,mean=0,sd=1)
+all_data <-data.frame(factor1,DV)
+
+aov_out<-aov(DV~factor1,all_data)
+
+summary(aov_out)
+sum_out <-summary(aov_out)
+sum_out [[1]]$
+
+```
 
