@@ -474,6 +474,106 @@ MyFirstFunction(numbers)</code></pre>
 ##  [69]  69  70  71  72  73  74  75  76  77  78  79  80  81  82  83  84  85
 ##  [86]  86  87  88  89  90  91  92  93  94  95  96  97  98  99 100</code></pre>
 </div>
+<div id="data-visualization" class="section level1">
+<h1>Data Visualization</h1>
+<pre class="r"><code>library(ggplot2)</code></pre>
+<pre class="r"><code>Nonsocial&lt;-c(0,1,2,4,26,46,53,59)
+Social&lt;-c(12,46,4,41,48,33,56,58)
+plot_df&lt;-data.frame(Nonsocial,Social)
+
+ggplot(plot_df, aes(x=Nonsocial,y=Social))+
+  geom_point()+
+  geom_smooth(method=lm,se=FALSE,fill=&quot;black&quot;)+
+  xlab(&quot;Average Frequency of Nonsocial Risk&quot;)+
+  ylab(&quot;Average Frequency of Social Risk&quot;)+
+  coord_cartesian(xlim=c(0,70),ylim=c(0,70))+
+  scale_x_continuous(breaks=seq(0,70,10), expand=c(0,0))+
+  scale_y_continuous(breaks=seq(0,70,10), expand=c(0,0))+
+  theme_classic()</code></pre>
+<p><img src="HomeWork_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<pre class="r"><code>Condition &lt;-rep(c(&quot;NoTransient&quot;,&quot;Transient&quot;), each=2)
+CG &lt;-rep(c(&quot;Outside&quot;,&quot;Inside&quot;),2)
+RT &lt;- rep(c(301,303,280,291))
+plot_df &lt;- data.frame(Condition, RT, CG)
+
+
+ggplot(plot_df, aes(x=Condition,y=RT,group=CG,fill=CG))+
+  geom_bar(stat=&quot;identity&quot;,position=&quot;dodge&quot;,color=&quot;black&quot;,size=.25)+
+  coord_cartesian(ylim=c(230,340))+
+  scale_y_continuous(breaks=seq(230,340,10))+
+  ylab(&quot;Mean Median RT (ms)&quot;)+
+  scale_fill_brewer(palette=&quot;Greys&quot;, direction=-1)+
+  theme_classic()+
+ggtitle(&quot;Visual Group&quot;)</code></pre>
+<p><img src="HomeWork_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<pre class="r"><code>Condition &lt;-rep(c(&quot;NoTransient&quot;,&quot;Transient&quot;), each=2)
+CG &lt;-rep(c(&quot;Outside&quot;,&quot;Inside&quot;),2)
+RT &lt;- rep(c(290,295,250,265))
+plot_df &lt;- data.frame(Condition, RT, CG)
+
+
+ ggplot(plot_df, aes(x=Condition,y=RT,group=CG,fill=CG))+
+  geom_bar(stat=&quot;identity&quot;,position=&quot;dodge&quot;, 
+           color=&quot;black&quot;,
+           size=.25)+
+  coord_cartesian(ylim=c(230,340))+
+  scale_y_continuous(breaks=seq(230,340,10))+
+  ylab(&quot;Mean Median RT (ms)&quot;)+
+  scale_fill_brewer(palette=&quot;Greys&quot;, direction=-1)+
+  theme_classic()+
+ggtitle(&quot;Auditory Group&quot;)</code></pre>
+<p><img src="HomeWork_files/figure-html/unnamed-chunk-9-2.png" width="672" /></p>
+<pre class="r"><code>Surgeon &lt;-rep(c(&quot;Men Performed Surgery \n n = 152&quot;,
+            &quot;Women Performed Surgery \n n = 142&quot;), each =3)
+Condition &lt;-rep(c(&quot;Prior&quot;, &quot;Model \n Posterior&quot;,&quot;Reported \n Posterior&quot;), 2)
+Percentege &lt;- c(.7, .88, .87, .29, .72, .74)
+plot_df &lt;- data.frame(Surgeon, Condition, Percentege)
+
+ggplot(plot_df, aes(x=Condition, y=Percentege, fill=Condition))+
+  geom_bar(stat=&quot;identity&quot;, position=&quot;dodge&quot;)+
+  ylab(&quot;P(Target = Doctor)&quot;)+
+  coord_cartesian(ylim=c(0,1))+
+  scale_y_continuous(breaks=seq(0,1,.1),labels = scales::percent)+
+  facet_wrap(~Surgeon)+
+  theme_classic()</code></pre>
+<p><img src="HomeWork_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<pre class="r"><code>Social &lt;- c(-2.4 , -2.4, -2.4 , 0, 0, 0, 2.4, 2.5, 2.7)
+AS &lt;- c(-6,-1,11, -1,-1,-2,-8,-6,4)
+plot_df &lt;- data.frame(Social,AS)
+
+ggplot(plot_df, aes(x=Social,y=AS))+
+  geom_point()+
+  geom_smooth(method=lm,se=FALSE,fill=&quot;black&quot;)+
+  xlab(&quot;Social N400&quot;)+
+  ylab(&quot;Autism-Spectrum \n Quotient (score)&quot;)+
+  scale_x_continuous(breaks=seq(-2.5,2.5,2.5))+
+  coord_cartesian(xlim=c(-2.5,5))</code></pre>
+<p><img src="HomeWork_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<pre class="r"><code>Social &lt;- c(-2.5, -2.4, -2.3, 0, 0, 2.4, 2.5)
+RM &lt;- c(-1, 2, 3, -3, -2, 5, -3)
+plot_df &lt;- data.frame(Social,RM)
+
+ggplot(plot_df, aes(x=Social,y=RM))+
+  geom_point()+
+  geom_smooth(method=lm,se=FALSE,fill=&quot;black&quot;)+
+  xlab(&quot;Social N400&quot;)+
+  ylab(&quot;Reading the Mind in the \n Eyes Test (score)&quot;)+
+  scale_x_continuous(breaks=seq(-2.5,2.5,2.5))+
+  coord_cartesian(xlim=c(-2.5,5))</code></pre>
+<p><img src="HomeWork_files/figure-html/unnamed-chunk-11-2.png" width="672" /></p>
+<pre class="r"><code>Social &lt;- c(-2.4, -2.4,-2.4, 0,0,0,2.4,2.5)
+EQT &lt;- c(-13,11,29,8,8,8, 12, 5)
+plot_df &lt;- data.frame(Social,EQT)
+
+ggplot(plot_df, aes(x=Social,y=EQT))+
+  geom_point()+
+  geom_smooth(method=lm,se=FALSE,fill=&quot;black&quot;)+
+  xlab(&quot;Social N400&quot;)+
+  ylab(&quot;Empathy Quotient Test \n  (score)&quot;)+
+  scale_x_continuous(breaks=seq(-2.5,2.5,2.5))+
+  coord_cartesian(xlim=c(-2.5,5))</code></pre>
+<p><img src="HomeWork_files/figure-html/unnamed-chunk-11-3.png" width="672" /></p>
+</div>
 
 
 

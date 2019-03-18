@@ -76,36 +76,119 @@ MyFirstFunction(numbers)
 seq(1:100 )
 ```
 
-# Class 2/25/2019 - Data Visualization
+#  Data Visualization
 
-columns:
-  names, MF(mean frequency), Condition
-  Dara      60                  SC
-  Dara      60                  NS
-  Rita      55                  SC
-  Rita      55                  NS
-  Aversity <- rep(c("A", "N_A")), times=c(4,6) ------------ repeats labels different amount of times a 4 times and n_a 6 times. 
-  
-  how to make random numbers????rnorm command??????????
-  rep command?????????????
-  c??????????????
-  
 ```{r}
-Names <- rep(c("Dara", "Azelea", "Barbi", "Rowena", "Fiona"),each=2)
-MF <-rnorm (10,45,25)
-Condition <- c("Social", "NonSocial")
-Aversity <- rep(c("A", "N_A"),times=c(4,6))
-                
-plot_df<- data.frame (Names, MF, Condition, Aversity)
+library(ggplot2)
 
-ggplot(plot_df, aes(x=Condition, y=MF, group=Names,linetype=Aversity))+
-  geom_line()+
-  geom_text(label=Names)+
+```
+Error: package or namespace load failed for ‘ggpubr’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]): there is no package called ‘tidyselect’
+
+```{r}
+
+Nonsocial<-c(0,1,2,4,26,46,53,59)
+Social<-c(12,46,4,41,48,33,56,58)
+plot_df<-data.frame(Nonsocial,Social)
+
+ggplot(plot_df, aes(x=Nonsocial,y=Social))+
+  geom_point()+
+  geom_smooth(method=lm,se=FALSE,fill="black")+
+  xlab("Average Frequency of Nonsocial Risk")+
+  ylab("Average Frequency of Social Risk")+
+  coord_cartesian(xlim=c(0,70),ylim=c(0,70))+
+  scale_x_continuous(breaks=seq(0,70,10), expand=c(0,0))+
+  scale_y_continuous(breaks=seq(0,70,10), expand=c(0,0))+
   theme_classic()
 
 ```
 
-```{r}
 
+```{r}
+Condition <-rep(c("NoTransient","Transient"), each=2)
+CG <-rep(c("Outside","Inside"),2)
+RT <- rep(c(301,303,280,291))
+plot_df <- data.frame(Condition, RT, CG)
+
+
+ggplot(plot_df, aes(x=Condition,y=RT,group=CG,fill=CG))+
+  geom_bar(stat="identity",position="dodge",color="black",size=.25)+
+  coord_cartesian(ylim=c(230,340))+
+  scale_y_continuous(breaks=seq(230,340,10))+
+  ylab("Mean Median RT (ms)")+
+  scale_fill_brewer(palette="Greys", direction=-1)+
+  theme_classic()+
+ggtitle("Visual Group")
+
+Condition <-rep(c("NoTransient","Transient"), each=2)
+CG <-rep(c("Outside","Inside"),2)
+RT <- rep(c(290,295,250,265))
+plot_df <- data.frame(Condition, RT, CG)
+
+
+ ggplot(plot_df, aes(x=Condition,y=RT,group=CG,fill=CG))+
+  geom_bar(stat="identity",position="dodge", 
+           color="black",
+           size=.25)+
+  coord_cartesian(ylim=c(230,340))+
+  scale_y_continuous(breaks=seq(230,340,10))+
+  ylab("Mean Median RT (ms)")+
+  scale_fill_brewer(palette="Greys", direction=-1)+
+  theme_classic()+
+ggtitle("Auditory Group")
+```
+
+```{r}
+Surgeon <-rep(c("Men Performed Surgery \n n = 152",
+            "Women Performed Surgery \n n = 142"), each =3)
+Condition <-rep(c("Prior", "Model \n Posterior","Reported \n Posterior"), 2)
+Percentege <- c(.7, .88, .87, .29, .72, .74)
+plot_df <- data.frame(Surgeon, Condition, Percentege)
+
+ggplot(plot_df, aes(x=Condition, y=Percentege, fill=Condition))+
+  geom_bar(stat="identity", position="dodge")+
+  ylab("P(Target = Doctor)")+
+  coord_cartesian(ylim=c(0,1))+
+  scale_y_continuous(breaks=seq(0,1,.1),labels = scales::percent)+
+  facet_wrap(~Surgeon)+
+  theme_classic()
+```
+
+
+```{r}
+Social <- c(-2.4 , -2.4, -2.4 , 0, 0, 0, 2.4, 2.5, 2.7)
+AS <- c(-6,-1,11, -1,-1,-2,-8,-6,4)
+plot_df <- data.frame(Social,AS)
+
+ggplot(plot_df, aes(x=Social,y=AS))+
+  geom_point()+
+  geom_smooth(method=lm,se=FALSE,fill="black")+
+  xlab("Social N400")+
+  ylab("Autism-Spectrum \n Quotient (score)")+
+  scale_x_continuous(breaks=seq(-2.5,2.5,2.5))+
+  coord_cartesian(xlim=c(-2.5,5))
+
+Social <- c(-2.5, -2.4, -2.3, 0, 0, 2.4, 2.5)
+RM <- c(-1, 2, 3, -3, -2, 5, -3)
+plot_df <- data.frame(Social,RM)
+
+ggplot(plot_df, aes(x=Social,y=RM))+
+  geom_point()+
+  geom_smooth(method=lm,se=FALSE,fill="black")+
+  xlab("Social N400")+
+  ylab("Reading the Mind in the \n Eyes Test (score)")+
+  scale_x_continuous(breaks=seq(-2.5,2.5,2.5))+
+  coord_cartesian(xlim=c(-2.5,5))
+
+Social <- c(-2.4, -2.4,-2.4, 0,0,0,2.4,2.5)
+EQT <- c(-13,11,29,8,8,8, 12, 5)
+plot_df <- data.frame(Social,EQT)
+
+ggplot(plot_df, aes(x=Social,y=EQT))+
+  geom_point()+
+  geom_smooth(method=lm,se=FALSE,fill="black")+
+  xlab("Social N400")+
+  ylab("Empathy Quotient Test \n  (score)")+
+  scale_x_continuous(breaks=seq(-2.5,2.5,2.5))+
+  coord_cartesian(xlim=c(-2.5,5))
 ```
 
