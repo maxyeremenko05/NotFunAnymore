@@ -321,3 +321,81 @@ sort(save_fs)[9500]
 
 ```
 
+
+RT 14.47, 19.99, 14.10, 19.22, 16.68, 9.88, 12.40, 9.40, 20.93, 7.90, 14.95, 13.19, 16.59, 16.59, 10.57, 10.42, 14.26, 11.63
+
+Funinness 5.41, 7.09, 9.82, 3.68, 6.59, 7.64, 6.77, 5.45, 6.82, 7.41, 9.59, 7.05, 6.50, 7.18, 5.68, 7.09, 6.18, 4.91
+
+HUMOR PRODUCTION SCORE 40.65, 42.85, 41.22, 37.79, 40.89, 40.71, 45.15, 39.83, 40.77, 43.78, 41.40, 43.61, 44.25, 44.26, 43.94, 45.24, 44.60, 43.33, 
+HUMOR COMPREHENSION SCORE
+60.2, 66.0, 60.2, 51.2, 55.5, 55.5, 82.2, 49.1, 53.3, 60.2, 66.0, 60.2, 62.9, 62.9, 66.0, 57.8, 57.8, 60.2
+
+RAW HUMOR COMPREHENSION SCORE 16, 18, 16, 12, 14, 14, 21, 11, 13, 16, 18, 16, 17, 17, 18, 15, 15, 16, 
+
+comprehansion and production
+
+```{r}
+
+Production <-c(40.65, 42.85, 41.22, 37.79, 40.89, 40.71, 45.15, 39.83, 40.77, 43.78, 41.40, 43.61, 44.25, 44.26, 43.94, 45.24, 44.60, 43.33)
+
+Comprehansion <-c(60.2, 66.0, 60.2, 51.2, 55.5, 55.5, 82.2, 49.1, 53.3, 60.2, 66.0, 60.2, 62.9, 62.9, 66.0, 57.8, 57.8, 60.2)
+
+cor.test(Production, Comprehansion)
+
+```
+
+hypothesis 1
+```{r}
+
+RT <-c(14.47, 19.99, 14.10, 19.22, 16.68, 9.88, 12.40, 9.40, 20.93, 7.90, 14.95, 13.19, 16.59, 16.59, 10.57, 10.42, 14.26, 11.63)
+
+Funinness <-c(5.41, 7.09, 9.82, 3.68, 6.59, 7.64, 6.77, 5.45, 6.82, 7.41, 9.59, 7.05, 6.50, 7.18, 5.68, 7.09, 6.18, 4.91)
+
+cor.test(RT,Funinness)
+
+```
+
+
+
+```{r}
+Raw <- c(16, 18, 16, 12, 14, 14, 21, 11, 13, 16, 18, 16, 17, 17, 18, 15, 15, 16)
+Funinness <- c(5.41, 7.09, 9.82, 3.68, 6.59, 7.64, 6.77, 5.45, 6.82, 7.41, 9.59, 7.05, 6.50, 7.18, 5.68, 7.09, 6.18, 4.91)
+
+cor.test(Raw,Funinness)
+```
+
+```{r}
+Production <-c(40.65, 42.85, 41.22, 37.79, 40.89, 40.71, 45.15, 39.83, 40.77, 43.78, 41.40, 43.61, 44.25, 44.26, 43.94, 45.24, 44.60, 43.33)
+
+Funinness <-c(5.41, 7.09, 9.82, 3.68, 6.59, 7.64, 6.77, 5.45, 6.82, 7.41, 9.59, 7.05, 6.50, 7.18, 5.68, 7.09, 6.18, 4.91)
+
+cor.test(Production, Funinness)
+
+plot(Production, Funinness)
+
+```
+
+
+
+```{r}
+plot(Production, Comprehansion, xlab='Humor production score', ylab='Humor comprehansion', main='Scatterplot of response time and Funiness rating', pch=20)
+
+
+```
+
+
+```{r}
+
+plot(RT, Funinness,xlab='Response time', ylab='Funiness rating', main='Scatterplot of response time and funinness rating', pch=20)
+
+```
+
+
+```{r}
+plot(Raw, Funinness,xlab='Raw scores', ylab='Funiness rating', main='Scatterplot of raw scores and funinness rating', pch=20)
+```
+
+```{r}
+plot(Production, Funinness,xlab='HUmor production scores', ylab='Funiness rating', main='Scatterplot of humor production scores and funinness rating', pch=20)
+```
+
