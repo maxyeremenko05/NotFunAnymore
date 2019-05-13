@@ -1,0 +1,101 @@
+---
+title: "Rhandsontable in Shiny"
+subtitle:
+author: "Maxim Yeremenko"
+date: "05/13/2019"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+
+---
+
+# rhandsontable
+
+Rhandsontable is a package that allows you to build tables with excel like appearence
+  - Editable and non-editable.
+
+---
+
+background-image: url(https://pp.userapi.com/c856124/v856124819/3f467/PnkYT7sK8jk.jpg)
+
+---
+
+Instal and open Shiny and rhandsontable:
+
+
+library(shiny)
+
+library(rhandsontable)
+
+---
+#Sabe Button
+
+Go to [Shiny widgets](https://shiny.rstudio.com/gallery/widget-gallery.html) and find the "Action button"
+
+Press "see code" and under the ui.R tab copy the code and paste under ui <- fluidpage ( in Shiny:
+
+
+
+    actionButton("saveBtn", label = "Save"),
+  
+    hr(),
+  
+    fluidRow(column(2, verbatimTextOutput("value")))
+
+
+---
+# Data frame for table
+
+Under the server logic, create number of columns with values you that you need (e.g Group1 and Group2) and make a data frame.
+
+
+    Group1=sample(1:10)
+    
+    Group2=sample(1:10)
+    
+    df1 =data.frame(Group1=Group1, Group2=Group2)
+  
+    datavalues <- reactiveValues(data=df)
+  
+
+---
+
+#Rendering the table
+
+Use this code to render the table out of the dataframe.
+
+
+  
+    output$Table <-renderRHandsontable({
+    
+      rhandsontable(df1)
+      
+---
+
+# Saving the data 
+
+Use this code to save the data into R each time the "Save"" button is pressed:
+
+    observeEvent(input$saveBtn,{
+    
+          df<-   data.frame(hot_to_r(input$Table))
+          
+OR this code to generate a csv file with your data:
+
+    
+    observeEvent(input$saveBtn,{
+    
+         write.csv(hot_to_r(input$Table), file ="MyData.csv", 
+         row.names = FALSE))
+---
+# Useful links
+
+[Shiny widgets](https://shiny.rstudio.com/gallery/widget-gallery.html)
+
+
+[More](https://cran.r-project.org/web/packages/rhandsontable/vignettes/intro_rhandsontable.html) about rhandsontable
+
